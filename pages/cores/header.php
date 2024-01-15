@@ -9,26 +9,14 @@
                 case '/pages/home.php':
                     echo "Online chatting app - Main Menu";
                     break;
-                case '/pages/login.php':
-                    if (isset($_SESSION['logged'])) {
-                        if ($_SESSION['logged'] == 'false') {
-                            echo "Online chatting app - Login";
-                            break;
-                        }
-                    }
-                    echo "Online chatting app - Logout";
+                case '/pages/chat.php':
+                    echo 'Online chatting app - Chat';
                     break;
                 case '/pages/logout.php':
-                    if (isset($_SESSION['logged'])) {
-                        if ($_SESSION['logged'] == 'true') {
-                            echo "Online chatting app - Logout";
-                            break;
-                        }
-                    }
-                    echo "Online chatting app - Login";
+                    echo "Online chatting app - Logout";
                     break;
-                case '/pages/logged.php':
-                    echo "Online chatting app - Registration";
+                case '/pages/login.php':
+                    echo "Online chatting app - Login";
                     break;
                 case '/pages/register.php':
                     echo "Online chatting app - Registration";
@@ -73,24 +61,24 @@
                         </div>
                         <div class="navdes<?= $_SESSION['site'] === '/pages/home.php' ? 'active' : '' ?>"></div>
                     </a>
-                    <a href="/pages/abouta" class="d-block text-decoration-none p-lg-0 p-1 hover<?= $_SESSION['site'] === '/pages/about.php' ? 'active' : '' ?>">
-                        <div class="d-flex text-center py-3 px-4 text-<?= $_SESSION['site'] === '/pages/about.php' ? 'primary' : 'light' ?> justify-content-center align-items-center">
-                            <span class="material-symbols-outlined d-block fs-1 p-1">Help</span>
-                            <span class="px-2 fs-3">About us</span>
+                    <a href="/pages/chat" class="d-<?= $_SESSION['logged'] === 'false' ? 'none' : 'block' ?> text-decoration-none p-lg-0 p-1 hover<?= $_SESSION['site'] === '/pages/chat.php' ? 'active' : '' ?>">
+                        <div class="d-flex text-center py-3 px-4 text-<?= $_SESSION['site'] === '/pages/chat.php' ? 'primary' : 'light' ?> justify-content-center align-items-center">
+                            <span class="material-symbols-outlined d-block fs-1 p-1">Forum</span>
+                            <span class="px-2 fs-3">Chat</span>
                         </div>
-                        <div class="navdes<?= $_SESSION['site'] === '/pages/about.php' ? 'active' : '' ?>"></div>
+                        <div class="navdes<?= $_SESSION['site'] === '/pages/chat.php' ? 'active' : '' ?>"></div>
                     </a>
                     <a href="/pages/login" class="d-<?= $_SESSION['logged'] === 'false' ? 'block' : 'none' ?> text-decoration-none ms-lg-auto p-lg-0 p-1 hover<?= $_SESSION['site'] === '/pages/login.php' ? 'active' : '' ?>">
                         <div class="d-flex text-center py-3 px-4 text-<?= $_SESSION['site'] === '/pages/login.php' ? 'primary' : 'light' ?> justify-content-center align-items-center">
                             <span class="material-symbols-outlined d-block fs-1 p-1">Login</span>
-                            <span class="px-2 fs-3">Log in</span>
+                            <span class="px-2 fs-3">Login</span>
                         </div>
                         <div class="navdes<?= $_SESSION['site'] === '/pages/login.php' ? 'active' : '' ?>"></div>
                     </a>
-                    <a href="/pages/login" class="d-<?= $_SESSION['logged'] === 'true' ? 'block' : 'none' ?> text-decoration-none ms-lg-auto p-lg-0 p-1 hover<?= $_SESSION['site'] === '/pages/logout.php' ? 'active' : '' ?>">
+                    <a href="/pages/logout" class="d-<?= $_SESSION['logged'] === 'true' ? 'block' : 'none' ?> text-decoration-none ms-lg-auto p-lg-0 p-1 hover<?= $_SESSION['site'] === '/pages/logout.php' ? 'active' : '' ?>">
                         <div class="d-flex text-center py-3 px-4 text-<?= $_SESSION['site'] === '/pages/logout.php' ? 'primary' : 'light' ?> justify-content-center align-items-center">
                             <span class="material-symbols-outlined d-block fs-1 p-1">Login</span>
-                            <span class="px-2 fs-3">Log out</span>
+                            <span class="px-2 fs-3">Logout</span>
                         </div>
                         <div class="navdes<?= $_SESSION['site'] === '/pages/logout.php' ? 'active' : '' ?>"></div>
                     </a>
@@ -100,13 +88,6 @@
                             <span class="px-2 fs-3">Sign up</span>
                         </div>
                         <div class="navdes<?= $_SESSION['site'] === '/pages/register.php' ? 'active' : '' ?>"></div>
-                    </a>
-                    <a href="/pages/register" class="d-<?= $_SESSION['logged'] === 'true' ? 'block' : 'none' ?> text-decoration-none p-lg-0 p-1 hover<?= $_SESSION['site'] === '/pages/logged.php' ? 'active' : '' ?>">
-                        <div class="d-flex text-center py-3 px-4 text-<?= $_SESSION['site'] === '/pages/logged.php' ? 'primary' : 'light' ?> justify-content-center align-items-center">
-                            <span class="material-symbols-outlined d-block fs-1 p-1">How_to_reg</span>
-                            <span class="px-2 fs-3">Sign up</span>
-                        </div>
-                        <div class="navdes<?= $_SESSION['site'] === '/pages/logged.php' ? 'active' : '' ?>"></div>
                     </a>
                 </div>
             </nav>

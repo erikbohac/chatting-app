@@ -65,7 +65,7 @@ header {
 .imgresize {
     width: 35%;
     height: 35%;
-    transform: translate(100%, 10%);
+    transform: translate(90%, 10%);
 }
 
 .line {
@@ -74,6 +74,10 @@ header {
 }
 
 .middle {
-    margin-top: 25vh;
-    margin-bottom: 25vh;
+    margin: 18vh 0;
+}
+
+.main-bg {
+    background-color: #007bff;
+    color: #fff;
 }

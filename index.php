@@ -4,6 +4,16 @@ session_start();
 
 $request = $_SERVER['REQUEST_URI'];
 
+if (!isset($_SESSION['logged'])) {
+    $_SESSION['logged'] = 'false';
+}
+
+function req_error()
+{
+    require __DIR__ . '/pages/errors/404.php';
+    exit();
+}
+
 switch ($request){
     case '/':
         $redirect = '/pages/home.php';
@@ -11,40 +21,36 @@ switch ($request){
     case '/home':
         $redirect = '/pages/home.php';
         break;
-    case '/pages/about':
-        $redirect = '/pages/about.php';
-        break;
-    case '/pages/gallery':
-        $redirect = '/pages/gallery.php';
+    case '/pages/chat':
+        if ($_SESSION['logged'] == 'true') {
+            $redirect = '/pages/chat.php';
+            break;
+        }
+        req_error();
+    case '/pages/logout':
+        if ($_SESSION['logged'] == 'true') {
+            $redirect = '/pages/logout.php';
+            break;
+        }
+        req_error();
         break;
     case '/pages/login':
-        if (isset($_SESSION['logged'])) {
-            if ($_SESSION['logged'] == 'false') {
-                $redirect = '/pages/login.php';
-                break;
-            }
+        if ($_SESSION['logged'] == 'false') {
+            $redirect = '/pages/login.php';
+            break;
         }
-        $redirect = '/pages/logout.php';
-        break;
+        req_error();
     case '/pages/register':
-        if (isset($_SESSION['logged'])) {
-            if ($_SESSION['logged'] == 'true') {
-                $redirect = '/pages/logged.php';
-                break;
-            }
+        if ($_SESSION['logged'] == 'false') {
+            $redirect = '/pages/register.php';
+            break;
         }
-        $redirect = '/pages/register.php';
-        break;
+        req_error();
     default:
-        require __DIR__ . '/pages/errors/404.php';
-        exit();
+        req_error();
 }
 
 $_SESSION['site'] = $redirect;
-
-if (!isset($_SESSION['logged'])) {
-    $_SESSION['logged'] = 'false';
-}
 
 require_once __DIR__ . '/pages/cores/header.php';
 require_once __DIR__ . $redirect;

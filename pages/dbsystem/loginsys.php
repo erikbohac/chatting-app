@@ -11,7 +11,7 @@ function verifyUser($email, $pass){
     else{
         $_SESSION["error"] = "Invalid Email or Password";
     }
-    header("Location: ../login");
+    header("Location: ../logout");
 }
 
 function verifyPass($email) : string{

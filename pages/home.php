@@ -1,16 +1,14 @@
-<main class="text-center fw-bold pb-5 pt-5">
-    <h1 class="text-container-2 py-5">FREE HATTING APP!</h1>
-    <h2 class="text-container-3 py-2">🚀 Why our app?</h2>
-    <div class="text-container-4 pb-5">
-        <p>✨ Seamless Connectivity: Stay connected with friends and family effortlessly. Our user-friendly interface ensures a smooth chatting experience.</p>
-        <p>🌈 Diverse Communities: Explore a world of diverse communities catering to various interests. From gaming enthusiasts to bookworms, there's a group for everyone.</p>
-        <p>🔒 Privacy and Security: Your privacy is our priority. Chat with confidence, knowing that your conversations are secure and your data is protected.</p>
+<main class="text-center">
+    <div class="main-bg p-5">
+        <h1 class="display-4">Welcome to Our Chat App</h1>
+        <p class="lead">Connect with friends and share your thoughts.</p>
     </div>
-    <h3 class="text-container-3 py-2">🎉 Features that Delight:</h3>
-    <div class="text-container-4 pb-5">
-        <p>Customizable Profiles: Express yourself with personalized profiles. Add a bio, share your interests, and let others get to know the real you.</p>
-        <p>Rich Media Sharing: Share photos, videos, and gifs to make your conversations come alive.</p>
-        <p>Voice and Video Calls: Connect face-to-face or with the warmth of your voice. Experience the joy of real-time communication.</p>
+    <div class="container my-5 pb-2">
+        <h2>Why Our App</h2>
+        <p class="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac justo vel erat vestibulum fringilla. Donec quis sapien sit amet arcu tristique convallis. In hac habitasse platea dictumst. Sed vel elit eget orci scelerisque feugiat.</p>
+
+        <h2>Features that Delight</h2>
+        <p class="mt-3">Donec quis sapien sit amet arcu tristique convallis. In hac habitasse platea dictumst.</p>
     </div>
-    <a href="./pages/login" class="fs-1 border rounded py-3 px-4 text-decoration-none bg-light">TRY FOR FREE</a>
+    <a href="./pages/<?= $_SESSION['logged'] === 'false' ? 'login' : 'chat' ?>" class="fs-2 border rounded py-2 px-3 text-decoration-none bg-light">TRY FOR FREE</a>
 </main>
