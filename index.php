@@ -8,9 +8,20 @@ if (!isset($_SESSION['logged'])) {
     $_SESSION['logged'] = 'false';
 }
 
-function req_error()
+if (strpos($request, '/api') === 0) {
+    require_once __DIR__ . '/api/api.php';
+    exit();
+}
+
+function req_unauthorized()
 {
-    require __DIR__ . '/pages/errors/404.php';
+    require_once __DIR__ . '/pages/errors/401.php';
+    exit();
+}
+
+function req_notfound()
+{
+    require_once __DIR__ . '/pages/errors/404.php';
     exit();
 }
 
@@ -26,28 +37,28 @@ switch ($request){
             $redirect = '/pages/chat.php';
             break;
         }
-        req_error();
+        req_unauthorized();
     case '/pages/logout':
         if ($_SESSION['logged'] == 'true') {
             $redirect = '/pages/logout.php';
             break;
         }
-        req_error();
+        req_unauthorized();
         break;
     case '/pages/login':
         if ($_SESSION['logged'] == 'false') {
             $redirect = '/pages/login.php';
             break;
         }
-        req_error();
+        req_unauthorized();
     case '/pages/register':
         if ($_SESSION['logged'] == 'false') {
             $redirect = '/pages/register.php';
             break;
         }
-        req_error();
+        req_unauthorized();
     default:
-        req_error();
+        req_notfound();
 }
 
 $_SESSION['site'] = $redirect;
