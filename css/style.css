@@ -79,5 +79,14 @@ header {
 
 .main-bg {
     background-color: #007bff;
-    color: #fff;
+}
+
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.chat-body {
+    height: 450px;
+    overflow-y: scroll;
 }

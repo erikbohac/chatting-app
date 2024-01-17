@@ -33,11 +33,39 @@ DELIMITER ;
 
 DELIMITER //
 
-create procedure `get_hash` (in emailx varchar(200), out hashx varchar(255))
+create procedure `get_hash` (in emailx varchar(255), out hashx varchar(255))
 begin
 	select password into hashx from users where email = emailx;
 end //
 
 DELIMITER ;
 
-select * from users;
+create table group_chat(
+	id int primary key auto_increment,
+    name varchar(255) not null unique
+);
+
+
+DELIMITER //
+
+create procedure `get_group` (in namex varchar(255), out can_create tinyint)
+begin
+	declare chat_exist int default 0;
+    
+	select count(name) into chat_exist from group_chat where name = namex;
+    
+    if chat_exist = 0
+    then
+		set can_create = 1;
+	else
+		set can_create = 0;
+	end if;
+end //
+
+DELIMITER ;
+/*
+create table message(
+	id int primary key auto_increment,
+    message varchar(255) not null
+);
+*/
