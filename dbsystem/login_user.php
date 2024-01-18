@@ -4,17 +4,18 @@ require_once 'dbc.php';
 
 session_start();
 
-function verifyUser($email, $pass){
+function verifyUser($email, $pass) {
     if(password_verify($pass, verifyPass($email))){
         $_SESSION["logged"] = "true";
+        header("Location: ../pages/logout");
     }
     else{
         $_SESSION["error"] = "Invalid Email or Password";
+        header("Location: ../pages/login");
     }
-    header("Location: ../logout");
 }
 
-function verifyPass($email) : string{
+function verifyPass($email) : string {
     $connection = DBC::getConnection();
 
     $getHashStatement = $connection->prepare("call get_hash(?, @hashx)");

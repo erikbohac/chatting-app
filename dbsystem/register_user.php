@@ -4,7 +4,7 @@ include 'dbc.php';
 
 session_start();
 
-function addUser($name, $email, $pass){
+function addUser($name, $email, $pass) {
     $connection = DBC::getConnection();
     
     $statement = $connection->prepare("call add_user (?, ?, ?, @success)");
@@ -20,15 +20,15 @@ function addUser($name, $email, $pass){
 
     if($success == 1){
         $_SESSION["report"] = "Registration was successful.";
-        header("Location: ../register");
+        header("Location: ../pages/register");
         return;
     }
 
     $_SESSION["reportun"] = "Registration was NOT successful, name or email are already used.";
-    header("Location: ../register");
+    header("Location: ../pages/register");
 }
 
-function hashPass($pass) : string{
+function hashPass($pass) : string {
     $password = password_hash($pass, PASSWORD_DEFAULT);
     return $password;
 }

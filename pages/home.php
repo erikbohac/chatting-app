@@ -1,5 +1,5 @@
 <main class="text-center">
-    <div class="main-bg text-white p-5">
+    <div class="main-bg text-white p-5 text-container-3">
         <h1 class="display-4">Welcome to Our Chat App</h1>
         <p class="lead">Connect with friends and share your thoughts.</p>
     </div>

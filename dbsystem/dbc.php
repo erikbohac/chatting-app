@@ -9,7 +9,7 @@ class DBC
 
     private static $connection = null;
 
-    public static function getConnection(){
+    public static function getConnection() {
         if (!self::$connection) {
             self::$connection = mysqli_connect(self::SERVER_IP, self::USER, self::PASSWORD, self::DATABASE);
             if (!self::$connection) {
@@ -19,7 +19,7 @@ class DBC
         return self::$connection;
     }
 
-    public static function closeConnection(){
+    public static function closeConnection() {
         if(self::$connection){
             mysqli_close(self::$connection);
         }

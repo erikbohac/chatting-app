@@ -45,7 +45,6 @@ create table group_chat(
     name varchar(255) not null unique
 );
 
-
 DELIMITER //
 
 create procedure `get_group` (in namex varchar(255), out can_create tinyint)

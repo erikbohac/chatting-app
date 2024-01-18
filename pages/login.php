@@ -1,6 +1,6 @@
 <main class="text-center">
     <div class="my-5 container justify-content-center d-flex pt-5" id="fade">
-        <form class="text-container-6 mx-5 w-75 mb-5" action="./dbsystem/loginsys.php" method="POST">
+        <form class="text-container-6 mx-5 w-75 mb-5" action="../dbsystem/login_user.php" method="POST">
             <?php
                 if (isset($_SESSION['error'])) {
                     $errorMessage = $_SESSION['error'];

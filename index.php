@@ -9,7 +9,7 @@ if (!isset($_SESSION['logged'])) {
 }
 
 if (strpos($request, '/api') === 0) {
-    require_once __DIR__ . '/api/api.php';
+    require_once __DIR__ . '/api/index.php';
     exit();
 }
 
