@@ -31,10 +31,33 @@ function createChat($name) {
 }
 
 function joinChat($name) {
-    //  get username
-    //  send message
-    //  join chat - get message
-    //  websocket
+    $connection = DBC::getConnection();
+
+    $getGroupStatus = $connection->prepare("SELECT count(name) FROM group_chat WHERE name = ?;");
+    $getGroupStatus->bind_param("s", $name);
+    $getGroupStatus->execute();
+    $getGroupStatus->bind_result($exists);
+    $getGroupStatus->fetch();
+    $getGroupStatus->free_result();
+
+    if ($exists > 0)
+    {
+        $url = 'http://localhost/api/group/' . $name;
+        $ch = curl_init($url);
+        $headers = [
+            'Authorization: Allowed',
+            'Content-Type: application/json',
+        ];
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $apiResponse = json_decode($response, true);
+        $_SESSION["messages"] = $apiResponse;
+        $_SESSION["chat_name"] = $name;
+    }
+    else{
+        $_SESSION["status"] = "Chat does not exist, try creating one";
+    }
 }
 
 if (isset($_POST["create"]))
@@ -43,9 +66,12 @@ if (isset($_POST["create"]))
 }
 if (isset($_POST["join"]))
 {
-    echo 'join';
+    joinChat($_POST["name"]);
 }
 
 header("Location: ../pages/chat");
 
 ?>
+
+//  send message
+//  websocket

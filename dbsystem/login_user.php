@@ -5,8 +5,10 @@ require_once 'dbc.php';
 session_start();
 
 function verifyUser($email, $pass) {
-    if(password_verify($pass, verifyPass($email))){
+    $data = verifyPass($email);
+    if(password_verify($pass, $data["password"])){
         $_SESSION["logged"] = "true";
+        $_SESSION["username"] = $data["name"];
         header("Location: ../pages/logout");
     }
     else{
@@ -15,26 +17,20 @@ function verifyUser($email, $pass) {
     }
 }
 
-function verifyPass($email) : string {
+function verifyPass($email) : array {
     $connection = DBC::getConnection();
 
-    $getHashStatement = $connection->prepare("call get_hash(?, @hashx)");
+    $query = "SELECT password, name FROM users WHERE email = ?;";
+    $getHashStatement = $connection->prepare($query);
     $getHashStatement->bind_param("s", $email);
     $getHashStatement->execute();
-    $getHashStatement->store_result();
+    $result = $getHashStatement->get_result();
 
-    $getHashResultStatement = $connection->prepare("select @hashx");
-    $getHashResultStatement->execute();
-    $getHashResultStatement->bind_result($hash);
-    $getHashResultStatement->fetch();
-    $getHashResultStatement->free_result();
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    $getHashStatement->close();
+    $connection->close();
 
-    if($hash != null){
-        return $hash;
-    }
-    else{
-        return '';
-    }
+    return count($rows) > 0 ? $rows[0] : [];
 }
 
 verifyUser($_POST["email"], $_POST["pass"]);

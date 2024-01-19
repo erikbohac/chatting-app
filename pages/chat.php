@@ -10,9 +10,31 @@
         <div class="chat-container">
             <div class="card">
                 <div class="card-header chat-header text-center bg-dark text-white p-3">
-                    <h3>Disconnected</h3>
+                    <h3>
+                        <?php 
+                            if (isset($_SESSION["chat_name"]))
+                            {
+                                echo 'Chat: ' . $_SESSION["chat_name"];
+                            }
+                            else{
+                                echo 'Disconnected';
+                            }
+                        ?>
+                    </h3>
                 </div>
                 <div class="card-body chat-body border border-1 p-3">
+                    <div class="media justify-content-end d-flex">
+                        <div class="media-body bg-primary text-white p-3 rounded">
+                            <p>This is a sent message.</p>
+                            <small class="text-light">12:34 PM</small>
+                        </div>
+                    </div>
+                    <div class="media mt-3 d-flex">
+                        <div class="media-body bg-light p-3 rounded">
+                            <p>This is a received message.</p>
+                            <small>12:36 PM</small>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer">
                     <div class="input-group mt-3">
