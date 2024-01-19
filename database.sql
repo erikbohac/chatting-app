@@ -62,9 +62,38 @@ begin
 end //
 
 DELIMITER ;
-/*
+
 create table message(
 	id int primary key auto_increment,
-    message varchar(255) not null
+    message varchar(255) not null,
+    group_id int,
+    foreign key (group_id) references group_chat(id),
+    user_id int,
+    foreign key (user_id) references users(id)
 );
-*/
+
+DELIMITER //
+
+
+CREATE PROCEDURE insert_message(
+    IN message_text VARCHAR(255),
+    IN group_name VARCHAR(255),
+    IN user_name VARCHAR(255)
+)
+BEGIN
+    DECLARE group_id_val INT;
+    DECLARE user_id_val INT;
+
+    -- Get group_id based on group_name
+    SELECT id INTO group_id_val FROM group_chat WHERE name = group_name;
+
+    -- Get user_id based on user_name
+    SELECT id INTO user_id_val FROM users WHERE name = user_name;
+
+    -- Insert the message
+    INSERT INTO message (message, group_id, user_id)
+    VALUES (message_text, group_id_val, user_id_val);
+
+END //
+
+DELIMITER ;

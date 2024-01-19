@@ -1,6 +1,6 @@
 <?php
 
-require_once './dbsystem/dbc.php';
+require_once realpath(__DIR__ . '/../dbsystem/dbc.php');
 
 function getUrlSegments($url) {
     $parsed_url = parse_url($url);
@@ -25,9 +25,41 @@ function notFoundResponse() {
 function getMessageByRoom($room) {
     $connection = DBC::getConnection();
 
-    $query = "SELECT * FROM group_chat WHERE CASE WHEN IFNULL(?, '') = '' THEN 1 ELSE name = ? END;"
+    $query = "SELECT * FROM group_chat WHERE CASE WHEN IFNULL(?, '') = '' THEN 1 ELSE name = ? END;";
     $getValues = $connection->prepare($query);
     $getValues->bind_param("ss", $room, $room);
+    $getValues->execute();
+    $result = $getValues->get_result();
+
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    $getValues->close();
+    $connection->close();
+
+    return $rows;
+}
+
+function getMessageByUser($user) {
+    $connection = DBC::getConnection();
+
+    $query = "SELECT * FROM message WHERE user_id = (SELECT id FROM users WHERE name = ?);";
+    $getValues = $connection->prepare($query);
+    $getValues->bind_param("s", $user);
+    $getValues->execute();
+    $result = $getValues->get_result();
+
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    $getValues->close();
+    $connection->close();
+
+    return $rows;
+}
+
+function getMessageByWord($word) {
+    $connection = DBC::getConnection();
+
+    $query = "SELECT * FROM message WHERE message LIKE CONCAT('%', ?, '%')";
+    $getValues = $connection->prepare($query);
+    $getValues->bind_param("s", $word);
     $getValues->execute();
     $result = $getValues->get_result();
 

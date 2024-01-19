@@ -33,7 +33,6 @@ function createChat($name) {
 function joinChat($name) {
     //  get username
     //  send message
-    //  rest api
     //  join chat - get message
     //  websocket
 }
