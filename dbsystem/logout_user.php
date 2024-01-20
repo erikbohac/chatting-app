@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-unset($_SESSION["error"]);
+session_unset();
 $_SESSION["logged"] = "false";
 header("Location: ../pages/login");
 

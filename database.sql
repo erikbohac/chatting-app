@@ -8,6 +8,7 @@ create table users(
     email varchar(255) not null unique check(email like '%@%')
 );
 
+
 DELIMITER //
 
 create procedure `add_user` (in namex varchar(20), in emailx varchar(200), in passwordx varchar(255), out success tinyint)
@@ -31,19 +32,11 @@ end //
 DELIMITER ;
 
 
-DELIMITER //
-
-create procedure `get_hash` (in emailx varchar(255), out hashx varchar(255))
-begin
-	select password into hashx from users where email = emailx;
-end //
-
-DELIMITER ;
-
 create table group_chat(
 	id int primary key auto_increment,
     name varchar(255) not null unique
 );
+
 
 DELIMITER //
 
@@ -63,6 +56,7 @@ end //
 
 DELIMITER ;
 
+
 create table message(
 	id int primary key auto_increment,
     message varchar(255) not null,
@@ -72,8 +66,8 @@ create table message(
     foreign key (user_id) references users(id)
 );
 
-DELIMITER //
 
+DELIMITER //
 
 CREATE PROCEDURE insert_message(
     IN message_text VARCHAR(255),

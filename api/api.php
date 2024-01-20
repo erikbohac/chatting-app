@@ -25,7 +25,7 @@ function notFoundResponse() {
 function getMessageByRoom($room) {
     $connection = DBC::getConnection();
 
-    $query = "SELECT message.id, message.message, users.name, group_chat.name AS 'group' FROM message INNER JOIN users ON users.id = message.user_id INNER JOIN group_chat ON group_chat.id = message.group_id WHERE CASE WHEN IFNULL(?, '') = '' THEN 1 ELSE group_id = (SELECT id from group_chat WHERE name = ?) END;";
+    $query = "SELECT message.id, message.message, users.name, group_chat.name AS 'group' FROM message INNER JOIN users ON users.id = message.user_id INNER JOIN group_chat ON group_chat.id = message.group_id WHERE CASE WHEN IFNULL(?, '') = '' THEN 1 ELSE group_id = (SELECT id from group_chat WHERE name = ?) END ORDER BY id;";
     $getValues = $connection->prepare($query);
     $getValues->bind_param("ss", $room, $room);
     $getValues->execute();
